@@ -1,5 +1,5 @@
 local n = select(2, ...)
-local l = n.locale
+local L = n.locale
 
 ----------------------------------------------------------------------------------------
 --	Window options
@@ -21,17 +21,16 @@ n["windows"] = {
 	titlefontsize = 8,						-- Font size for title
 	titlefontcolor = {1, 1, 1},				-- Font color for title
 	highlight = {1, 0.8, 0},				-- Color for button highlight
+	title_hide = false,						-- Hide title
 
 	-- Lines
 	lineheight = 14,						-- Height for lines
 	linegap = 1,							-- Height for line gap
 	linealpha = 1,							-- Alpha for lines
-	linefontstyle = "OUTLINEMONOCHROME",					-- Font style for line
-	-- linefont = [[Fonts\ARIALN.TTF]],		-- Set font for line
 	linefont = [[Interface\AddOns\ShestakUI\Media\Fonts\Pixel.ttf]],		-- Set font for line
+	linefontstyle = "OUTLINEMONOCHROME",					-- Font style for line
 	linefontsize = 8,						-- Font size for line
 	linefontcolor = {1, 1, 1},				-- Font color for line
-	-- linetexture = [[Interface\Tooltips\UI-Tooltip-Background]],	-- Set texture for line
 	linetexture = [[Interface\AddOns\ShestakUI\Media\Textures\Texture.tga]],	-- Set texture for line
 }
 
@@ -58,27 +57,27 @@ n["types"] = {
 		c = {.25, .66, .35},
 	},
 	{	-- Damage Targets
-		name = l.dmg_tar,
+		name = L.dmg_tar,
 		id = "dd",
 		view = "Targets",
 		onlyfights = true,
 		c = {.25, .66, .35},
 	},
 	{	-- Damage Taken: Targets
-		name = l.dmg_take_tar,
+		name = L.dmg_take_tar,
 		id = "dt",
 		view = "Targets",
 		onlyfights = true,
 		c = {.66, .25, .25},
 	},
 	{	-- Damage Taken: Abilities
-		name = l.dmg_take_abil,
+		name = L.dmg_take_abil,
 		id = "dt",
 		view = "Spells",
 		c = {.66, .25, .25},
 	},
 	{	-- Friendly Fire
-		name = l.friend_fire,
+		name = L.friend_fire,
 		id = "ff",
 		c = {.63, .58, .24},
 	},
@@ -89,7 +88,7 @@ n["types"] = {
 		c = {.25, .5, .85},
 	},
 --	{	-- Healing Taken: Abilities
---		name = l.heal_take_abil,
+--		name = L.heal_take_abil,
 --		id = "ht",
 --		view = "Spells",
 --		c = {.25, .5, .85},
@@ -105,7 +104,7 @@ n["types"] = {
 --		c = {.25, .5, .85},
 --	},
 	{	-- Overhealing
-		name = l.overheal,
+		name = L.overheal,
 		id = "oh",
 		c = {.25, .5, .85},
 	},
@@ -125,7 +124,7 @@ n["types"] = {
 		c = {.19, .44, .75},
 	},
 	{	-- Death Log
-		name = l.death_log,
+		name = L.death_log,
 		id = "deathlog",
 		view = "Deathlog",
 		onlyfights = true,
