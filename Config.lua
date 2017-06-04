@@ -1,11 +1,15 @@
+local T, C, l = unpack(ShestakUI)
 local n = select(2, ...)
 local L = n.locale
 
+local a = C.position.unitframes.player[4]
+local b = C.position.unitframes.player[5]
 ----------------------------------------------------------------------------------------
 --	Window options
 ----------------------------------------------------------------------------------------
 n["windows"] = {
-	pos = {"BOTTOM", -284, 25},				-- Position for Main Frame
+	-- pos = {"BOTTOM", -284, 25},				-- Position for Main Frame
+	pos = {"BOTTOM", a, b},				-- Position for Main Frame
 	width = 217,							-- Width for Main Frame
 	maxlines = 6,							-- Maximum lines
 	backgroundalpha = 0.0,					-- Alpha for background
