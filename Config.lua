@@ -2,14 +2,26 @@ local T, C, l = unpack(ShestakUI)
 local n = select(2, ...)
 local L = n.locale
 
-local a = C.position.unitframes.player[4]
-local b = C.position.unitframes.player[5]
+local a = math.ceil(GetNumGroupMembers() / 5)
+local posX = C.position.unitframes.player[4]
+local posY = C.position.unitframes.player[5]
+local a = math.ceil(GetNumGroupMembers() / 5)
+if SavedOptions and SavedOptions.RaidLayout == "HEAL" and not C.raidframe.raid_groups_vertical then
+	if a < 4 then return end
+	posY = C.position.unitframes.player[5] + (a - 4) * 41
+end
+if SavedOptions and SavedOptions.RaidLayout == "VHEAL" and not C.raidframe.raid_groups_vertical then
+	if a < 5 then return end
+	posX = C.position.unitframes.player[4] - (a - 5) * 33.6
+end
+posX = posX - 275
+posY = posY - 150
 ----------------------------------------------------------------------------------------
 --	Window options
 ----------------------------------------------------------------------------------------
 n["windows"] = {
 	-- pos = {"BOTTOM", -284, 25},				-- Position for Main Frame
-	pos = {"BOTTOM", a, b},				-- Position for Main Frame
+	pos = {"BOTTOM", posX, posY},				-- Position for Main Frame
 	width = 217,							-- Width for Main Frame
 	maxlines = 6,							-- Maximum lines
 	backgroundalpha = 0.0,					-- Alpha for background
