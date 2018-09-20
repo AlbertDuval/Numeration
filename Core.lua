@@ -39,14 +39,9 @@ addon.spellIcon = setmetatable({[75] = "", [88163] = ""}, {__index = function(tb
 end})
 addon.spellName = setmetatable({}, {__index = function(tbl, i)
 	local spell, _, icon = GetSpellInfo(i)
-	if spell then
-		addon.spellIcon[i] = icon
-		tbl[i] = spell
-		return spell
-	else
-		print("|cffff0000WARNING: spell ID ["..tostring(i).."] no longer exists! Report this to author of Numeration addon.|r")
-		return "Empty"
-	end
+	addon.spellIcon[i] = icon
+	tbl[i] = spell
+	return spell
 end})
 local newSet = function()
 	return {
@@ -126,6 +121,9 @@ function addon:InitOptions()
 	if NumerationCharOptions.onlyinstance == nil then
 		NumerationCharOptions.onlyinstance = false
 	end
+	if NumerationCharOptions.combathide == nil then
+		NumerationCharOptions.combathide = false
+	end
 	if not NumerationCharOptions.minimap then
 		NumerationCharOptions.minimap = {
 			hide = false,
@@ -175,6 +173,19 @@ function addon:ToggleVisibility()
 end
 
 function addon:MinimapIconShow(show)
+	if addon.windows.title_hide then
+		NumerationCharOptions.minimap.hide = false
+		return
+	end
+	NumerationCharOptions.minimap.hide = not show
+	if show then
+		icon:Show("Numeration")
+	else
+		icon:Hide("Numeration")
+	end
+end
+
+function addon:CombatShow(show)
 	if addon.windows.title_hide then
 		NumerationCharOptions.minimap.hide = false
 		return
@@ -435,9 +446,10 @@ do
 	end
 end
 
-function addon:COMBAT_LOG_EVENT_UNFILTERED(e, timestamp, eventtype, _, srcGUID, srcName, srcFlags, _, dstGUID, dstName, dstFlags, _, ...)
+function addon:COMBAT_LOG_EVENT_UNFILTERED(e)
+	local timestamp, eventtype, _, srcGUID, _, _, _, dstGUID, dstName = CombatLogGetCurrentEventInfo()
 	if self.collect[eventtype] then
-		self.collect[eventtype](timestamp, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
+		self.collect[eventtype](timestamp, select(4, CombatLogGetCurrentEventInfo()))
 	end
 
 	local ClassOrOwnerGUID = self.guidToClass[srcGUID]
@@ -549,11 +561,22 @@ end
 function addon:PLAYER_REGEN_DISABLED()
 	inCombat = true
 	combatTimer:Hide()
+
+	if NumerationCharOptions.combathide then
+		self.window:Hide()
+	end
 end
 
 function addon:PLAYER_REGEN_ENABLED()
 	inCombat = nil
 	combatTimer:Activate()
+
+	if not NumerationCharOptions.forcehide then
+		if NumerationCharOptions.combathide then
+			self.window:Show()
+			self:RefreshDisplay()
+		end
+	end
 end
 
 function addon:ENCOUNTER_START(_, _, encounterName)
