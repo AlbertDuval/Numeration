@@ -5,6 +5,7 @@
 ## Author: nekoh, Wetxius
 ## Thanks: Shestak
 ## Version: 2.8.9
+## RequiredDeps: ShestakUI
 ## OptionalDeps: !ClassColors
 ## SavedVariablesPerCharacter: NumerationCharDB, NumerationCharOptions
 
