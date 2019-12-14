@@ -9,8 +9,6 @@
 ## OptionalDeps: !ClassColors
 ## SavedVariablesPerCharacter: NumerationCharDB, NumerationCharOptions
 
-## X-Curse-Packaged-Version: 2.9.2
-## X-Curse-Project-Name: Numeration Damage Meter
 ## X-Curse-Project-ID: 75133
 ## X-WoWI-ID: 17434
 

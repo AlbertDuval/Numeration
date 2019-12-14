@@ -2,10 +2,7 @@ local addon = select(2, ...)
 local L = addon.locale
 local C = addon.windows
 
-local stateFrame = CreateFrame("Frame", nil, UIParent, "SecureHandlerStateTemplate")
-RegisterStateDriver(stateFrame, "visibility", C.frameVisibility)
-
-local window = CreateFrame("Frame", "NumerationFrame", stateFrame)
+local window = CreateFrame("Frame", "NumerationFrame", UIParent)
 addon.window = window
 
 local HiddenFrame = CreateFrame("Frame")
@@ -16,7 +13,7 @@ window:SetScript("OnEvent", function(self, event)
 	if event == "PET_BATTLE_OPENING_START" then
 		window:SetParent(HiddenFrame)
 	else
-		window:SetParent(stateFrame)
+		window:SetParent(UIParent)
 	end
 end)
 
